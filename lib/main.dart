@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:restaurant_app/routes/routes.dart';
 import 'package:restaurant_app/views/screens/welcome_screen.dart';
 
 void main() {
@@ -11,12 +13,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'buy&eat',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const WelcomeScreen(),
+      // home: const WelcomeScreen(),
+      initialRoute: AppRoutes.initRoute,
+      getPages: AppRoutes.routes,
     );
   }
 }
+ 
