@@ -2,28 +2,40 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+import 'package:restaurant_app/logic/controllers/auth_controller.dart';
+import 'package:restaurant_app/utils/theme.dart';
 import 'package:restaurant_app/views/widgets/text_utils.dart';
 
 class CheckWidget extends StatelessWidget {
-  const CheckWidget({Key? key}) : super(key: key);
+  CheckWidget({Key? key}) : super(key: key);
+
+  final controller = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return GetBuilder<AuthController>(builder: (_) {
+      return Row(
         children: [
           InkWell(
             onTap: () {
-              // controller.checkBox();
+              controller.checkBox();
             },
             child: Container(
-              height: 35,
-              width: 35,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Image.asset('assets/images/check.png')
-            ),
+                height: 35,
+                width: 35,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: controller.isCheckBox
+                    ? Get.isDarkMode
+                        ? const Icon(
+                            Icons.done,
+                            color: pinkClr,
+                          )
+                        : Image.asset('assets/images/check.png')
+                    : Container()),
           ),
           const SizedBox(
             width: 10,
@@ -34,19 +46,20 @@ class CheckWidget extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: FontWeight.normal,
                 text: "I accept ",
-                color: Colors.black,
+                color: Get.isDarkMode ? Colors.white : Colors.black,
                 underLine: TextDecoration.none,
               ),
               TextUtils(
                 fontSize: 16,
                 fontWeight: FontWeight.normal,
                 text: "terms & conditions",
-                color: Colors.black,
+                color: Get.isDarkMode ? Colors.white : Colors.black,
                 underLine: TextDecoration.underline,
               ),
             ],
           ),
         ],
       );
+    });
   }
 }

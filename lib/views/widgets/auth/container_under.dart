@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 import 'package:restaurant_app/utils/theme.dart';
 import 'package:restaurant_app/views/widgets/text_utils.dart';
 
@@ -24,7 +25,7 @@ class ContainerUnder extends StatelessWidget {
       width: double.infinity,
       height: 100,
       decoration: BoxDecoration(
-        color:  mainColor,
+        color: Get.isDarkMode ? pinkClr : mainColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),

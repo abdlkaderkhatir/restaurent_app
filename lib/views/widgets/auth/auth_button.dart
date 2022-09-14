@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 import 'package:restaurant_app/utils/theme.dart';
 import 'package:restaurant_app/views/widgets/text_utils.dart';
 
@@ -19,7 +20,7 @@ class AuthButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        primary:  mainColor,
+        primary:  Get.isDarkMode ? pinkClr : mainColor,
         minimumSize: const Size(360, 50),
       ),
       child: TextUtils(
