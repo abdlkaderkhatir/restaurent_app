@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -106,8 +107,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                                   obscureText: false,
                                                   validator: (value) {
                                                     if (value.toString().length <= 2 ||
-                                                        !RegExp(validationName).hasMatch(value)) {
-                                                      return 'Enter valid name';
+                                                        !RegExp(validationEmail).hasMatch(value)) {
+                                                      return 'Enter valid email';
                                                     } else {
                                                       return null;
                                                     }
@@ -168,12 +169,22 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 const SizedBox(
                                                   height: 50,
                                                 ),
-                      
+                                              GetBuilder<AuthController>(builder: (_){
+                                                return 
                                                 AuthButton(
-                                                      onPressed: () {
+                                                      onPressed: () async {
+
+                                                        if(formKey.currentState!.validate()){
+                                                           controller.signUpUsingFirebase(
+                                                            name: nameController.text.trim(), 
+                                                            email: emailController.text.trim(), 
+                                                            password: passwordController.text.trim());
+                                                        }
+                                                       
                                                       },
                                                       text: "SIGN UP",
-                                                    ),
+                                                    );
+                                              })
                                             ],
                                           ),
                                         ),

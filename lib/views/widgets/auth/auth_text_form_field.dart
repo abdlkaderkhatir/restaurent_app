@@ -26,7 +26,7 @@ class AuthTextFormField extends StatelessWidget {
       obscureText: obscureText,
       cursorColor: Colors.black,
       keyboardType: TextInputType.text,
-      validator:(value){},
+      validator:(value)=>validator(value),
        style: const TextStyle(
         color: Colors.black,
       ),
@@ -49,14 +49,14 @@ class AuthTextFormField extends StatelessWidget {
           borderSide: const BorderSide(color: Colors.white),
           borderRadius: BorderRadius.circular(10),
         ),
-         errorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.circular(10),
-        ),
+        //  errorBorder: OutlineInputBorder(
+        //   borderSide: const BorderSide(color: Colors.white),
+        //   borderRadius: BorderRadius.circular(10),
+        // ),
+        // focusedErrorBorder: OutlineInputBorder(
+        //   borderSide: const BorderSide(color: Colors.white),
+        //   borderRadius: BorderRadius.circular(10),
+        // ),
       ),
     );
   }

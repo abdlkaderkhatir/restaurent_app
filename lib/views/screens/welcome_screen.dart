@@ -72,7 +72,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         TextUtils(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
-                          text: "Buy",
+                          text: "Shop",
                           color: mainColor,
                           underLine: TextDecoration.none,
                         ),
@@ -82,7 +82,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         TextUtils(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
-                          text: "&Eat",
+                          text: "&Hope",
                           color: Colors.white,
                           underLine: TextDecoration.none,
                         ),

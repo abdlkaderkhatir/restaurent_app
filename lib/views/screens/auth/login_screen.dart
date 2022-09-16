@@ -146,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           alignment: Alignment.centerRight,
                           child: TextButton(
                             onPressed: () {
-                              // Get.toNamed(Routes.forgotPasswordScreen);
+                              Get.toNamed(Routes.forgotPasswordScreen);
                             },
                             child: TextUtils(
                               text: 'Forgot Password?',
@@ -164,13 +164,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         GetBuilder<AuthController>(builder: (_) {
                           return AuthButton(
                             onPressed: () {
-                              // if (fromKey.currentState!.validate()) {
-                              //   String email = emailController.text.trim();
-                              //   String password = passwordController.text;
+                              if (formKey.currentState!.validate()) {
+                                String email = emailController.text.trim();
+                                String password = passwordController.text;
 
-                              //   controller.logInUsingFirebase(
-                              //       email: email, password: password);
-                              // }
+                                controller.logInUsingFirebase(
+                                    email: email, password: password);
+                              }
                             },
                             text: "LOG IN",
                           );
@@ -205,7 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             GetBuilder<AuthController>(builder: (_) {
                               return InkWell(
                                 onTap: () {
-                                  // controller.googleSinUpApp();
+                                  controller.googleSinUpApp();
                                 },
                                 child: Image.asset(
                                   "assets/images/google.png",

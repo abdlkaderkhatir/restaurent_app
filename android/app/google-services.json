@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "910977385392",
+    "project_id": "shop-cd753",
+    "storage_bucket": "shop-cd753.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910977385392:android:8ca8678796c7c8f998cc75",
+        "android_client_info": {
+          "package_name": "com.example.restaurant_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "910977385392-fkcv5bm9atig0o8oouuekflhudilc99h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA39JUaqpowrlRDkuNLOh7yv14sEl-qO4E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "910977385392-fkcv5bm9atig0o8oouuekflhudilc99h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
