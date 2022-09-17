@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_app/logic/controllers/auth_controller.dart';
 import 'package:restaurant_app/logic/controllers/main_controller.dart';
+import 'package:restaurant_app/logic/controllers/theme_controller.dart';
 import 'package:restaurant_app/utils/theme.dart';
 
 class MainScreen extends StatefulWidget {
@@ -29,7 +30,7 @@ class _MainScreenState extends State<MainScreen> {
               actions: [
                    IconButton(
                       onPressed: () {
-                        Get.isDarkMode? Get.changeThemeMode(ThemeMode.light):Get.changeThemeMode(ThemeMode.dark);
+                        
                       },
                       icon: Image.asset('assets/images/shop.png'),
                     ),

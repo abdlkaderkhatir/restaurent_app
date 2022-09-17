@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:restaurant_app/routes/routes.dart';
 
@@ -13,6 +14,9 @@ class AuthController extends GetxController {
   var displayUserName = '';
   var displayUserPhoto = '';
   var displayUserEmail = '';
+
+   var isSignedIn = false;
+  final GetStorage authBox = GetStorage();
 
 
   void visibility() {
@@ -81,8 +85,8 @@ class AuthController extends GetxController {
           .then((value) =>
               displayUserName= auth.currentUser!.displayName!);
 
-      // isSignedIn = true;
-      // authBox.write("auth", isSignedIn);
+      isSignedIn = true;
+      authBox.write("auth", isSignedIn);
 
       update();
       Get.offNamed(Routes.mainScreen);
@@ -158,8 +162,8 @@ class AuthController extends GetxController {
       displayUserName = '';
       displayUserPhoto = '';
       //displayUserEmail.value = '';
-      // isSignedIn = false;
-      // authBox.remove("auth");
+      isSignedIn = false;
+      authBox.remove("auth");
       update();
 
       Get.offNamed(Routes.welcomeScreen);
@@ -181,6 +185,9 @@ class AuthController extends GetxController {
       displayUserName = googleUser!.displayName!;
       displayUserPhoto = googleUser.photoUrl!;
       displayUserEmail = googleUser.email;
+
+      isSignedIn = true;
+      authBox.write("auth", isSignedIn);
 
       update();
 
