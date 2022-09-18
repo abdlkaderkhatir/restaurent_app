@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:restaurant_app/logic/controllers/product_controller.dart';
 import 'package:restaurant_app/utils/theme.dart';
 
 class FavoritesScreen extends StatefulWidget {
@@ -13,13 +14,17 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
+
+  final controller = Get.find<ProductController>();
+
   @override
   Widget build(BuildContext context) {
      return Scaffold(
       backgroundColor:context.theme.backgroundColor,
-      body: 
-          
-             Center(
+      body: Obx(() {
+
+           if (controller.favouritesList.isEmpty) {
+              return  Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -40,28 +45,41 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       )),
                 ],
               ),
-            ),
-          
-          //  ListView.separated(
-          //     itemBuilder: (context, index) {
-          //       return buildFavItems();
-          //     },
-          //     separatorBuilder: (context, index) {
-          //       return const Padding(
-          //         padding: EdgeInsets.only(left:20,right: 20),
-          //         child: Divider(
-          //           color: Colors.grey,
-          //           thickness: 2,
-          //         ),
-          //       );
-          //     },
-          //     itemCount: 3,
-          //   ),
-        
+            );
+           }else{
+
+            return  ListView.separated(
+              itemBuilder: (context, index) {
+                return buildFavItems(
+                  image: controller.favouritesList[index].image,
+                  price: controller.favouritesList[index].price,
+                  title: controller.favouritesList[index].title,
+                  productid: controller.favouritesList[index].id,
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const Padding(
+                  padding: EdgeInsets.only(left:20,right: 20),
+                  child: Divider(
+                    color: Colors.grey,
+                    thickness: 2,
+                  ),
+                );
+              },
+              itemCount: controller.favouritesList.length,
+            );
+
+           }
+
+      }),
       );
   }
 
-  Widget buildFavItems() {
+  Widget buildFavItems({
+    required String image,
+    required double price,
+    required String title,
+    required int productid,}) {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: SizedBox(
@@ -78,7 +96,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 child: AspectRatio(
                   aspectRatio: 1,
                   child: Image.network(
-                    "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+                    image,
                     // fit: BoxFit.cover,
                   ),
                 ),
@@ -94,7 +112,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+                    title,
                     style: TextStyle(
                       overflow: TextOverflow.ellipsis,
                       color: Get.isDarkMode ? Colors.white : Colors.black,
@@ -106,7 +124,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                     height: 10,
                   ),
                   Text(
-                    '\$ 109.95',
+                    '\$ $price',
                     style: TextStyle(
                       overflow: TextOverflow.ellipsis,
                       color: Get.isDarkMode ? Colors.white : Colors.black,
@@ -120,9 +138,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             const Spacer(),
             IconButton(
               onPressed: () {
+                controller.manageFavourites(productid);
               },
               icon: const Icon(
-                Icons.favorite,
+                Icons.close,
                 color: Colors.red,
                 size: 30,
               ),

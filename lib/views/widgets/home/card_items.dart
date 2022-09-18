@@ -1,8 +1,3 @@
-
-
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -85,21 +80,27 @@ class CardItems extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Row(
+               Obx(
+                () => Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
                       onPressed: () {
-                       
+                        controller.manageFavourites(productId);
                       },
-                      icon: const Icon(
+                      icon: controller.isFavourites(productId)
+                          ? const Icon(
                               Icons.favorite,
                               color: Colors.red,
                             )
+                          : const Icon(
+                              Icons.favorite_outline,
+                              color: Colors.black,
+                            ),
                     ),
                     IconButton(
                       onPressed: () {
-                     
+                       
                       },
                       icon: const Icon(
                         Icons.shopping_cart,
@@ -108,6 +109,7 @@ class CardItems extends StatelessWidget {
                     ),
                   ],
                 ),
+              ),
               Container(
                 width: double.infinity,
                 height: 140,
