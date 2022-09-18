@@ -6,22 +6,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurant_app/logic/controllers/product_controller.dart';
+import 'package:restaurant_app/models/product.dart';
 import 'package:restaurant_app/utils/theme.dart';
 import 'package:restaurant_app/views/widgets/text_utils.dart';
 
 class CardItems extends StatelessWidget {
   CardItems({Key? key}) : super(key: key);
 
-  // final controller = Get.find<ProductController>();
-
-  // final cartController = Get.find<CartController>();
+  final controller = Get.find<ProductController>();
 
   @override
   Widget build(BuildContext context) {
+        return Obx(() {
+      if (controller.isLoading.value) {
+        return 
+        // Expanded(
+        //   child: 
+          Center(
+            child: CircularProgressIndicator(
+              color: Get.isDarkMode ? pinkClr : mainColor,
+            ),
+          );
+        // );
+      } else {
         return Expanded(
-          child: GridView.builder(
-            padding: EdgeInsets.only(left:10,right:10),
-                  itemCount: 10,
+          child:  GridView.builder(
+                  itemCount: controller.productList.length,
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     childAspectRatio: 0.8,
                     mainAxisSpacing: 9.0,
@@ -29,23 +40,23 @@ class CardItems extends StatelessWidget {
                     maxCrossAxisExtent: 200,
                   ),
                   itemBuilder: (context, index) {
-                    // if (controller.searchList.isEmpty) {
+                   
                       return buildCardItems(
-                          image: "https://th.bing.com/th/id/OIP.QGZsVQmfGKqG_anApDaPnAHaKX?pid=ImgDet&w=1000&h=1400&rs=1",
-                          price: 99.9,
-                          rate: 4,
-                          productId: 1,
-                          // productModels: controller.productList[index],
+                          image: controller.productList[index].image,
+                          price: controller.productList[index].price,
+                          rate: controller.productList[index].rating.rate,
+                          productId: controller.productList[index].id,
+                          product: controller.productList[index],
                           onTap: () {
-                            // Get.to(() => ProductDetailsScreen(
-                            //       productModels: controller.productList[index],
-                            //     ));
+                           
                           });
-                    // } 
-                  },
+                    
+                  }
+                  
                 ),
         );
-      
+      }
+    }); 
   }
 
   Widget buildCardItems({
@@ -53,7 +64,7 @@ class CardItems extends StatelessWidget {
     required double price,
     required double rate,
     required int productId,
-
+    required Product product,
     required Function() onTap,
   }) {
     return Padding(
