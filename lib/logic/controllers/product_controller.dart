@@ -50,7 +50,9 @@ class ProductController extends GetxController{
 
     if (existingIndex >= 0) {
       favouritesList.removeAt(existingIndex);
-      stoarge.remove("isFavouritesList").then((value) async => await stoarge.write("isFavouritesList", favouritesList));
+      // stoarge.remove("isFavouritesList").then((value) async =>
+       await stoarge.write("isFavouritesList", favouritesList);
+      //  );
     } else {
       favouritesList
           .add(productList.firstWhere((element) => element.id == productId));

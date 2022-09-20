@@ -5,14 +5,24 @@ import 'package:restaurant_app/utils/my_string.dart';
 
 class ProductService {
 
-    static Future<List<Product>>  getProducts() async {
-    var response = await http.get(Uri.parse('$baseUrl/products'));
+   static Future<List<Product>>  getProducts() async {
+    // List<Product> products=[];
+      try{
+          var response = await http.get(Uri.parse('$baseUrl/products'));
 
-    if (response.statusCode == 200) {
-      var jsonData = response.body;
-      return productFromJson(jsonData);
-    } else {
-      return throw Exception("Failed to load product");
-    }
+            if (response.statusCode == 200) {
+              var jsonData = response.body;
+
+              if (jsonData == null) {
+                  return [];
+              }
+              return productFromJson(jsonData);
+            } else {
+              // return products;
+              return throw Exception("Failed to load product");
+            }
+        }catch(e){
+          return throw Exception(e.toString());
+       }
   }
 }

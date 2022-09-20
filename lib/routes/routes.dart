@@ -6,6 +6,7 @@ import 'package:restaurant_app/middleware/auth_middleware.dart';
 import 'package:restaurant_app/views/screens/auth/forgot_password_screen.dart';
 import 'package:restaurant_app/views/screens/auth/login_screen.dart';
 import 'package:restaurant_app/views/screens/auth/signup_screen.dart';
+import 'package:restaurant_app/views/screens/cart_screen.dart';
 import 'package:restaurant_app/views/screens/main_screen.dart';
 import 'package:restaurant_app/views/screens/welcome_screen.dart';
 
@@ -26,6 +27,7 @@ class AppRoutes{
         MainBindings(),
         AuthBindings(),
         ProductBindings()]),
+    GetPage(name: Routes.cartScreen, page:()=>const CartScreen(), binding: AuthBindings()),
   ];
 }
 
@@ -35,6 +37,6 @@ class Routes {
   static const loginScreen = '/login';
   static const forgotPasswordScreen = '/forgotpassword';
   static const mainScreen = '/main';
-  static const cartScreen = '/cartScreen';
+  static const cartScreen = '/cart';
   static const paymentScreen = '/paymentScreen';
 }
