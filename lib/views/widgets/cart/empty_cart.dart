@@ -83,6 +83,6 @@ class EmptyCart extends StatelessWidget {
           ),
         ],
       ),
-    );
+       );
   }
 }

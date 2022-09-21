@@ -1,15 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restaurant_app/logic/controllers/cart_controller.dart';
 import 'package:restaurant_app/logic/controllers/product_controller.dart';
 import 'package:restaurant_app/models/product.dart';
 import 'package:restaurant_app/utils/theme.dart';
+import 'package:restaurant_app/views/screens/product_details_screen.dart';
 import 'package:restaurant_app/views/widgets/text_utils.dart';
 
 class CardItems extends StatelessWidget {
   CardItems({Key? key}) : super(key: key);
 
   final controller = Get.find<ProductController>();
+
+  final cartcontroller = Get.find<CartController>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +48,7 @@ class CardItems extends StatelessWidget {
                           productId: controller.productList[index].id,
                           product: controller.productList[index],
                           onTap: () {
-                           
+                           Get.to(()=>ProductDetailsScreen(productModels: controller.productList[index],));
                           });
                     
                   }
@@ -60,12 +65,12 @@ class CardItems extends StatelessWidget {
     required double rate,
     required int productId,
     required Product product,
-    required Function() onTap,
+    required Function onTap,
   }) {
     return Padding(
       padding: const EdgeInsets.only(top:5.0),
       child: InkWell(
-        onTap: onTap,
+        onTap: () => onTap(),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
@@ -100,10 +105,11 @@ class CardItems extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                       
+                       cartcontroller.addProductToCart(product);
                       },
                       icon: const Icon(
-                        Icons.shopping_cart,
+                        Icons.add
+                        ,
                         color: Colors.black,
                       ),
                     ),

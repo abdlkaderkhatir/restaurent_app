@@ -27,7 +27,7 @@ class AppRoutes{
         MainBindings(),
         AuthBindings(),
         ProductBindings()]),
-    GetPage(name: Routes.cartScreen, page:()=>const CartScreen(), binding: AuthBindings()),
+    GetPage(name: Routes.cartScreen, page:()=>const CartScreen(), binding: ProductBindings()),
   ];
 }
 

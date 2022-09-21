@@ -3,11 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:restaurant_app/logic/controllers/cart_controller.dart';
+import 'package:restaurant_app/models/product.dart';
 import 'package:restaurant_app/utils/theme.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({Key? key}) : super(key: key);
+   final Product productModels;
+   final int index;
+   final int quantity;
+  ProductItem({
+    required this.productModels,
+    required this.index,
+    required this.quantity,
+    Key? key,
+  }) : super(key: key);
 
+
+  final cartcontroller = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +43,7 @@ class ProductItem extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
               image: DecorationImage(
-                image: NetworkImage("https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg"),
+                image: NetworkImage(productModels.image),
                 fit: BoxFit.cover,
               ),
             ),
@@ -46,7 +58,7 @@ class ProductItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Mens Cotton Jacket",
+                  productModels.title,
                   style: TextStyle(
                     overflow: TextOverflow.ellipsis,
                     color: Get.isDarkMode ? Colors.white : Colors.black,
@@ -58,7 +70,7 @@ class ProductItem extends StatelessWidget {
                   height: 20,
                 ),
                 Text(
-                  "\$ 9",
+                  "\$${cartcontroller.productSubTotal[index].toStringAsFixed(2)}",
                   style: TextStyle(
                     overflow: TextOverflow.ellipsis,
                     color: Get.isDarkMode ? Colors.white : Colors.black,
@@ -76,7 +88,7 @@ class ProductItem extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      // controller.removeProductsFarmCart(productModels);
+                      cartcontroller.removeProductsFarmCart(productModels);
                     },
                     icon: Icon(
                       Icons.remove_circle,
@@ -84,7 +96,7 @@ class ProductItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "3",
+                    "$quantity",
                     style: TextStyle(
                       overflow: TextOverflow.ellipsis,
                       color: Colors.black,
@@ -94,7 +106,7 @@ class ProductItem extends StatelessWidget {
                   ),
                   IconButton(
                     onPressed: () {
-                      // controller.addProductToCart(productModels);
+                      cartcontroller.addProductToCart(productModels);
                     },
                     icon: Icon(
                       Icons.add_circle,
@@ -105,7 +117,7 @@ class ProductItem extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  // controller.removeOneProduct(productModels);
+                  cartcontroller.removeOneProduct(productModels);
                 },
                 icon: Icon(
                   Icons.delete,
