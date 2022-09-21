@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
+    return SafeArea(
       child: Scaffold(
         backgroundColor: context.theme.backgroundColor,
         body: Column(
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       underLine: TextDecoration.none,
                     ),
                     const SizedBox(height: 20),
-                    const SearchTextForm(),
+                    SearchTextForm(),
                   ],
                 ),
               ),
@@ -85,4 +85,5 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-}}
+  }
+}

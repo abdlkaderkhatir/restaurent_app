@@ -10,6 +10,10 @@ class ProductController extends GetxController{
     var isLoading = true.obs;
     var stoarge = GetStorage();
 
+    //search
+    var searchList = <Product>[].obs;
+    TextEditingController searchTextController = TextEditingController();
+
 
   @override
   void onInit() {
@@ -63,6 +67,28 @@ class ProductController extends GetxController{
 
   bool isFavourites(int productId) {
     return favouritesList.any((element) => element.id == productId);
+  }
+
+
+  //Search Bar Logic
+
+  void addSearchToList(String searchName) {
+    searchName = searchName.toLowerCase();
+
+    searchList.value = productList.where((search) {
+      var searchTitle = search.title.toLowerCase();
+      var searchPrice = search.price.toString().toLowerCase();
+
+      return searchTitle.contains(searchName) ||
+          searchPrice.toString().contains(searchName);
+    }).toList();
+
+    update();
+  }
+
+  void clearSearch() {
+    searchTextController.clear();
+    addSearchToList("");
   }
 
 }

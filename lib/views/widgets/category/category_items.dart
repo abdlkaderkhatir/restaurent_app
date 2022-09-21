@@ -1,80 +1,72 @@
+
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restaurant_app/logic/controllers/cart_controller.dart';
+import 'package:restaurant_app/logic/controllers/category_controller.dart';
 import 'package:restaurant_app/logic/controllers/product_controller.dart';
 import 'package:restaurant_app/models/product.dart';
 import 'package:restaurant_app/utils/theme.dart';
 import 'package:restaurant_app/views/screens/product_details_screen.dart';
 import 'package:restaurant_app/views/widgets/text_utils.dart';
 
-class CardItems extends StatelessWidget {
-  CardItems({Key? key}) : super(key: key);
+class CategoryItems extends StatelessWidget {
+  final String catehoryTitle;
+  CategoryItems({
+    required this.catehoryTitle,
+    Key? key,
+  }) : super(key: key);
 
   final controller = Get.find<ProductController>();
 
-  final cartcontroller = Get.find<CartController>();
+  final cartController = Get.find<CartController>();
+
+  final categoryController = Get.find<CategoryController>();
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      if (controller.isLoading.value) {
-        return
-            // Expanded(
-            //   child:
-            Center(
-          child: CircularProgressIndicator(
-            color: Get.isDarkMode ? pinkClr : mainColor,
-          ),
-        );
-        // );
-      } else {
-        return Expanded(
-          child: controller.searchList.isEmpty &&
-                  controller.searchTextController.text.isNotEmpty
-              ? Get.isDarkMode
-                  ? Image.asset("assets/images/search_empty_dark.png")
-                  : Image.asset("assets/images/search_empry_light.png")
-              : GridView.builder(
-                  itemCount: controller.searchList.isEmpty
-                      ? controller.productList.length
-                      : controller.searchList.length,
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    childAspectRatio: 0.8,
-                    mainAxisSpacing: 9.0,
-                    crossAxisSpacing: 6.0,
-                    maxCrossAxisExtent: 200,
-                  ),
-                  itemBuilder: (context, index) {
-                    if (controller.searchList.isEmpty) {
-                      return buildCardItems(
-                          image: controller.productList[index].image,
-                          price: controller.productList[index].price,
-                          rate: controller.productList[index].rating.rate,
-                          productId: controller.productList[index].id,
-                          product: controller.productList[index],
-                          onTap: () {
-                            Get.to(() => ProductDetailsScreen(
-                                  productModels: controller.productList[index],
-                                ));
-                          });
-                    } else {
-                      return buildCardItems(
-                          image: controller.searchList[index].image,
-                          price: controller.searchList[index].price,
-                          rate: controller.searchList[index].rating.rate,
-                          productId: controller.searchList[index].id,
-                          product: controller.searchList[index],
-                          onTap: () {
-                            Get.to(() => ProductDetailsScreen(
-                                  productModels: controller.searchList[index],
-                                ));
-                          });
-                    }
-                  }),
-        );
-      }
-    });
+    return Scaffold(
+      backgroundColor: context.theme.backgroundColor,
+      appBar: AppBar(
+        title: Text(catehoryTitle),
+        centerTitle: true,
+        backgroundColor: Get.isDarkMode ? darkGreyClr : mainColor,
+      ),
+      body: Obx(() {
+        if (categoryController.isAllCategory.value) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: Get.isDarkMode ? pinkClr : mainColor,
+            ),
+          );
+        } else {
+          return GridView.builder(
+            itemCount: categoryController.categoryList.length,
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              childAspectRatio: 0.8,
+              mainAxisSpacing: 9.0,
+              crossAxisSpacing: 6.0,
+              maxCrossAxisExtent: 200,
+            ),
+            itemBuilder: (context, index) {
+              return buildCardItems(
+                  image: categoryController.categoryList[index].image,
+                  price: categoryController.categoryList[index].price,
+                  rate: categoryController.categoryList[index].rating.rate,
+                  productId: categoryController.categoryList[index].id,
+                  productModels: categoryController.categoryList[index],
+                  onTap: () {
+                    Get.to(() => ProductDetailsScreen(
+                          productModels: categoryController.categoryList[index],
+                        ));
+                  });
+            },
+          );
+        }
+      }),
+    );
   }
 
   Widget buildCardItems({
@@ -82,13 +74,13 @@ class CardItems extends StatelessWidget {
     required double price,
     required double rate,
     required int productId,
-    required Product product,
-    required Function onTap,
+    required Product productModels,
+    required Function() onTap,
   }) {
     return Padding(
-      padding: const EdgeInsets.only(top: 5.0),
+      padding: const EdgeInsets.all(5),
       child: InkWell(
-        onTap: () => onTap(),
+        onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
@@ -123,10 +115,10 @@ class CardItems extends StatelessWidget {
                     ),
                     IconButton(
                       onPressed: () {
-                        cartcontroller.addProductToCart(product);
+                        cartController.addProductToCart(productModels);
                       },
                       icon: const Icon(
-                        Icons.add,
+                        Icons.shopping_cart,
                         color: Colors.black,
                       ),
                     ),

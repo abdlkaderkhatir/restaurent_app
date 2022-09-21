@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
+import 'package:restaurant_app/logic/controllers/product_controller.dart';
 
 class SearchTextForm extends StatelessWidget {
-  const SearchTextForm({Key? key}) : super(key: key);
-
+  SearchTextForm({Key? key}) : super(key: key);
+  final controller = Get.find<ProductController>();
   @override
   Widget build(BuildContext context) {
-    return  TextField(
+    return GetBuilder<ProductController>(
+     builder: (_) => TextField(
+        controller: controller.searchTextController,
         cursorColor: Colors.black,
-        keyboardType: TextInputType.text,        
+        keyboardType: TextInputType.text,
+        onChanged: (searchName) {
+          controller.addSearchToList(searchName);
+        },
         decoration: InputDecoration(
           fillColor: Colors.white,
           focusColor: Colors.red,
@@ -17,6 +24,17 @@ class SearchTextForm extends StatelessWidget {
             Icons.search,
             color: Colors.grey,
           ),
+          suffixIcon: controller.searchTextController.text.isNotEmpty
+              ? IconButton(
+                  onPressed: () {
+                    controller.clearSearch();
+                  },
+                  icon: const Icon(
+                    Icons.close,
+                    color: Colors.black,
+                  ),
+                )
+              : null,
           hintText: "Search with name & price",
           hintStyle: const TextStyle(
             color: Colors.black45,
@@ -41,6 +59,7 @@ class SearchTextForm extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-      );
+      ),
+    );
   }
 }
