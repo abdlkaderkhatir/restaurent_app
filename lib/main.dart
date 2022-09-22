@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
       title: 'Shop&Hope',
       debugShowCheckedModeBanner: false,
       locale: Locale(GetStorage().read<String>('lang').toString()),
+      // locale: Intl.getCurrentLocale(),
       translations: LocaliztionApp(),
       fallbackLocale: Locale(ene),
       theme: ThemesApp.light,

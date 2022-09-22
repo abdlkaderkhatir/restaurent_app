@@ -41,17 +41,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     TextUtils(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
-                      text: "Find Your",
+                      text: "Find Your".tr,
                       color: Colors.white,
                       underLine: TextDecoration.none,
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 3,
                     ),
                     TextUtils(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      text: "INSPIRATION",
+                      text: "INSPIRATION".tr,
                       color: Colors.white,
                       underLine: TextDecoration.none,
                     ),
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: TextUtils(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
-                  text: "Categories",
+                  text: "Categories".tr,
                   color: Get.isDarkMode ? Colors.white : Colors.black,
                   underLine: TextDecoration.none,
                 ),

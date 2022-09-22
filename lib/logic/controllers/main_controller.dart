@@ -17,10 +17,10 @@ class MainController extends GetxController {
   ].obs;
 
   var title = [
-    "Shop ",
-    "Categories",
-    'Favourites',
-    "Settings",
+    "Shop".tr,
+    "Categories".tr,
+    'Favourites'.tr,
+    "Settings".tr,
   ].obs;
 
 }
