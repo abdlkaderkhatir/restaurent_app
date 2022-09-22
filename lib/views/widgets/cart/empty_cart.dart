@@ -70,7 +70,7 @@ class EmptyCart extends StatelessWidget {
                 primary: Get.isDarkMode ? pinkClr : mainColor,
               ),
               onPressed: () {
-                 Get.to(Routes.mainScreen);
+                 Get.toNamed(Routes.mainScreen);
               },
               child: const Text(
                 'Go to Home',
